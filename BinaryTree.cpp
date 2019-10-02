@@ -10,70 +10,12 @@ BinaryTree::BinaryTree() {
 }
 
 //Class Functions
-bool BinaryTree::IsFull() {
-  int numOfFullTreeNodes = 2;
-  for(int lcv = 1; lcv < treeHeight + 1; lcv++) {
-    numOfFullTreeNodes = numOfFullTreeNodes * 2;
-  }
-  numOfFullTreeNodes = numOfFullTreeNodes - 1;
+bool BinaryTree::RecAddItem(Node* root, char value) {
 
-  std::cout << "Nodes in tree: " <<treeSize <<", and Max Nodes for Tree of Height: " <<treeHeight <<" is: " <<numOfFullTreeNodes <<std::endl;
-  if(treeSize == numOfFullTreeNodes) {
-    return(true);
-  }
-  return(false);
 }
 
-bool BinaryTree::RecAddItem(Node* root, int level, int value) {
+void BinaryTree::AddItem(char item) {
 
-  // if(root->getLeftChild() == nullptr) {
-  //   return(root);
-  // }
-  // else if(root->getRightChild() == nullptr) {
-  //   return(root);
-  // }
-  // else if (root->getLeftChild() != nullptr && level < treeHeight){
-  //   return(findNextLeaf(root->getRightChild(), level++));
-  // }
-  // else if (root->getRightChild() != nullptr){
-  //   return(findNextLeaf(root->getLeftChild(), level++));
-  // }
-  // else {
-  //   std::cout << "ERROR: recursive function findNextLeaf not working as expected\n";
-  // }
-  // std::cout << "L: " <<level << " H: " << treeHeight << std::endl;
-  if(level > treeHeight) {
-    return(false);
-  }
-  else if(root->getLeftChild() == nullptr) {
-    Node* childNode = new Node(value);
-    root->setLeftChild(childNode);
-    treeSize++;
-    return(true);
-  }
-  else if(root->getRightChild() == nullptr) {
-    Node* childNode = new Node(value);
-    root->setRightChild(childNode);
-    treeSize++;
-    return(true);
-  }
-  else if (RecAddItem(root->getLeftChild(), level++, value) && level < treeHeight){
-    return(true);
-  }
-  else if (RecAddItem(root->getRightChild(), level++, value) && level < treeHeight){
-    return(true);
-  }
-  else {
-    std::cout << "ERROR: recursive function findNextLeaf not working as expected\n";
-  }
-}
-
-void BinaryTree::AddItem(int item) {
-  //Full Tree
-  if(IsFull()) {
-    std::cout <<"Full tree, adding new layer\n";
-    treeHeight++;
-  }
   // Empty Tree
   if(treeRoot == nullptr) {
     std::cout << "Inserting at root.\n";
@@ -81,64 +23,21 @@ void BinaryTree::AddItem(int item) {
     treeRoot = childNode;
   }
   else {
-    // IsFull();
-    RecAddItem(treeRoot, 0, item);
+    RecAddItem(treeRoot, item);
   }
 }
 
-bool BinaryTree::RecDelete(Node* root, int value) {
-  if(root->getValue() == value) {
-    return(true);
-  }
-  else if(root->getLeftChild() == nullptr && root->getRightChild() == nullptr) {
-    return(false);
-  }
-  else if(root->getLeftChild() != nullptr) {
-    return(RecDelete(root->getRightChild(), value));
-  }
-  else if(root->getRightChild() == nullptr) {
-    return(RecDelete(root->getLeftChild(), value));
-  }
-  else {
-      std::cout << "ERROR: Rec delete entered an unexpected branch of recursion\n";
-  }
+bool BinaryTree::RecDelete(Node* root, char value) {
 
-  // //Only Active for Root Case
-  // if(root->getValue() == value) {
-  //
-  // }
-  // //All Other Cases
-  // if((root->getLeftChild())->getValue() == value) {
-  //   return(RecDelete(root->getRightChild(), value));
-  // }
-  // else if(root->getRightChild())->getValue() == value) {
-  //   return(RecDelete(root->getLeftChild(), value));
-  // }
-  //
-  // if(root->getValue() == value) {
-  //   return(true);
-  // }
-  // if(root->getLeftChild() == nullptr && root->getRightChild() == nullptr) {
-  //   return(false);
-  // }
-  // else if(root->getLeftChild() == nullptr) {
-  //   return(RecDelete(root->getRightChild(), value));
-  // }
-  // else if(root->getRightChild() == nullptr) {
-  //   return(RecDelete(root->getLeftChild(), value));
-  // }
-  // else {
-  //     std::cout << "ERROR: Rec delete entered an unexpected branch of recursion\n";
-  // }
 }
 
-bool BinaryTree::Delete(int value) {
+bool BinaryTree::Delete(char value) {
   RecDelete(treeRoot, value);
 }
 
 
 
-bool BinaryTree::RecIsLeaf(Node* root, int value) {
+bool BinaryTree::RecIsLeaf(Node* root, char value) {
   if(root->getValue() == value) {
     if(root->getLeftChild() == nullptr && root->getRightChild() == nullptr) {
       return(true);
@@ -154,7 +53,7 @@ bool BinaryTree::RecIsLeaf(Node* root, int value) {
 return(false);
 }
 
-bool BinaryTree::IsLeaf(int value) {
+bool BinaryTree::IsLeaf(char value) {
   RecIsLeaf(treeRoot, value);
 }
 
@@ -239,4 +138,12 @@ void BinaryTree::PrintLevelorder() {
   std::cout << "Output: Printing the tree in Level-Order: ";
   RecPrintLevelorder(treeRoot);
   std::cout << std::endl;
+}
+
+bool BinaryTree::RecSearchElement(Node* root, char item) {
+
+}
+
+bool BinaryTree::SearchElement(char item) {
+  RecSearchElement(treeRoot, item);
 }

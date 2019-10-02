@@ -8,20 +8,19 @@ class Node {
   public:
     //Constructor
     Node();
-    Node(int value);
-    Node(int value, Node* leftChild, Node* rightChild);
+    Node(char value);
 
     //Helper Functions
-    void setValue(int value);
+    void setValue(char value);
     void setLeftChild(Node* child);
     void setRightChild(Node* child);
 
-    int getValue();
+    char getValue();
     Node* getLeftChild();
     Node* getRightChild();
 
   private:
-    int value;
+    char value;
     Node* leftChild;
     Node* rightChild;
 };

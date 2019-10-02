@@ -4,25 +4,19 @@
 
 //Constructor
 Node::Node() {
-  value = 0;
+  value = '\0';
   leftChild = nullptr;
   rightChild = nullptr;
 }
 
-Node::Node(int val) {
+Node::Node(char val) {
   value = val;
   leftChild = nullptr;
   rightChild = nullptr;
 }
 
-Node::Node(int value, Node* lChild, Node* rChild) {
-  value = value;
-  leftChild = lChild;
-  rightChild = rChild;
-}
-
 //Helper Functions
-void Node::setValue(int v) {
+void Node::setValue(char v) {
   value = v;
 }
 
@@ -35,7 +29,7 @@ void Node::setRightChild(Node* child) {
 }
 
 
-int Node::getValue() {
+char Node::getValue() {
   return(value);
 }
 

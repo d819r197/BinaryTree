@@ -1,5 +1,5 @@
-BinaryTree: main.o Executive.o BinaryTree.o Node.o
-	g++ -g -std=c++11 main.o Executive.o BinaryTree.o Node.o -o BinaryTree
+BinarySearchTree: main.o Executive.o BinaryTree.o Node.o
+	g++ -g -std=c++11 main.o Executive.o BinaryTree.o Node.o -o BinarySearchTree
 
 main.o: main.cpp Executive.h
 	g++ -std=c++11 -g -c main.cpp
@@ -14,4 +14,4 @@ Node.o: Node.h Node.cpp
 	g++ -std=c++11 -g -c Node.cpp
 
 clean:
-	rm *.o BinaryTree
+	rm *.o BinarySearchTree
