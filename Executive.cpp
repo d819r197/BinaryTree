@@ -81,17 +81,17 @@ void Executive::run() {
       }
       //Print Tree Height
       case 6: {
-
+          tree->PrintTreeHeight();
           break;
       }
       //Preorder
       case 7: {
-
+          tree->PrintPreorder();
           break;
       }
       //Postorder
       case 8: {
-
+          tree->PrintPostorder();
           break;
       }
       //Inorder
@@ -101,7 +101,7 @@ void Executive::run() {
       }
       //Levelorder
       case 10: {
-
+          tree->PrintLevelorder();
           break;
       }
       //Quit

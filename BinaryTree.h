@@ -12,7 +12,8 @@ class BinaryTree {
 
     //Class Functions
     bool IsFull();
-    void RecAddItem(Node* root, int level, int value);
+
+    bool RecAddItem(Node* root, int level, int value);
     void AddItem(int item);
 
     bool RecDelete(Node* root, int value);
