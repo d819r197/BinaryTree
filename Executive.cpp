@@ -12,16 +12,16 @@ Executive::Executive(std::string path) {
 int Executive::menuInput() {
   int choice;
 
-  std::cout << "1.  \n";
-  std::cout << "2. AddItem \n";
-  std::cout << "3. Delete \n";
-  std::cout << "4. Leaf \n";
-  std::cout << "5. PrintLeaf \n";
-  std::cout << "6. PrintTreeHeight \n";
-  std::cout << "7. Preorder \n";
-  std::cout << "8. Postorder \n";
-  std::cout << "9. Inorder \n";
-  std::cout << "10. Levelorder \n";
+  std::cout << "1. AddItem \n";
+  std::cout << "2. Delete \n";
+  std::cout << "3. Leaf \n";
+  std::cout << "4. PrintLeaf \n";
+  std::cout << "5. PrintTreeHeight \n";
+  std::cout << "6. Preorder \n";
+  std::cout << "7. Postorder \n";
+  std::cout << "8. Inorder \n";
+  std::cout << "9. Levelorder \n";
+  std::cout << "10. SearchItem \n";
   std::cout << "11. Exit \n";
 
   std::cout << ">> ";
@@ -120,9 +120,7 @@ bool Executive::parseInputFile() {
     while(inputFile.get(c)) {
       if (c != ' ' && c != '\n') {
         tree->AddItem(c);
-      }
-      else {
-        std::cout <<"ERROR: Can't parse input file, confusion about char: " <<c <<std::endl;
+
       }
     }
     inputFile.close();

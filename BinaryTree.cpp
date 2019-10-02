@@ -11,11 +11,28 @@ BinaryTree::BinaryTree() {
 
 //Class Functions
 bool BinaryTree::RecAddItem(Node* root, char value) {
+  if(value <= root->getValue() && root->getLeftChild() != nullptr) {
+    RecAddItem(root->getLeftChild(), value);
+  }
+  else if(value > root->getValue() && root->getRightChild() != nullptr) {
+    RecAddItem(root->getRightChild(), value);
+  }
+  else if(value <= root->getValue() && root->getLeftChild() == nullptr ) {
+    Node* newNode = new Node(value);
+    root->setLeftChild(newNode);
+  }
+  else if(value > root->getValue() && root->getRightChild() == nullptr ) {
+    Node* newNode = new Node(value);
+    root->setRightChild(newNode);
+  }
+  else {
+    std::cout << "ERROR: Unexpected behavior occured in RecAddItem().\n";
+  }
 
 }
 
 void BinaryTree::AddItem(char item) {
-
+std::cout << "Adding item: " <<item <<" to the tree.\n";
   // Empty Tree
   if(treeRoot == nullptr) {
     std::cout << "Inserting at root.\n";
@@ -79,32 +96,38 @@ void BinaryTree::PrintTreeHeight() {
 }
 
 void BinaryTree::RecPrintPreorder(Node* root) {
-  std::cout <<root->getValue() << ", ";
-  if(root->getLeftChild() != nullptr) {
-    RecPrintInorder(root->getLeftChild());
-  }
-  if(root->getRightChild() != nullptr) {
-    RecPrintInorder(root->getRightChild());
+  if(root != nullptr) {
+    std::cout <<root->getValue() << ", ";
+    if(root->getLeftChild() != nullptr) {
+      RecPrintInorder(root->getLeftChild());
+    }
+    if(root->getRightChild() != nullptr) {
+      RecPrintInorder(root->getRightChild());
+    }
   }
 }
 
 void BinaryTree::RecPrintPostorder(Node* root) {
-  if(root->getLeftChild() != nullptr) {
-    RecPrintInorder(root->getLeftChild());
+  if(root != nullptr) {
+    if(root->getLeftChild() != nullptr) {
+      RecPrintInorder(root->getLeftChild());
+    }
+    if(root->getRightChild() != nullptr) {
+      RecPrintInorder(root->getRightChild());
+    }
+    std::cout <<root->getValue() << ", ";
   }
-  if(root->getRightChild() != nullptr) {
-    RecPrintInorder(root->getRightChild());
-  }
-  std::cout <<root->getValue() << ", ";
 }
 
 void BinaryTree::RecPrintInorder(Node* root) {
-  if(root->getLeftChild() != nullptr) {
-    RecPrintInorder(root->getLeftChild());
-  }
-  std::cout <<root->getValue() << ", ";
-  if(root->getRightChild() != nullptr) {
-    RecPrintInorder(root->getRightChild());
+  if(root != nullptr) {
+    if(root->getLeftChild() != nullptr) {
+      RecPrintInorder(root->getLeftChild());
+    }
+    std::cout <<root->getValue() << ", ";
+    if(root->getRightChild() != nullptr) {
+      RecPrintInorder(root->getRightChild());
+    }
   }
 }
 
@@ -118,13 +141,13 @@ void BinaryTree::RecPrintLevelorder(Node* root) {
 
 void BinaryTree::PrintPreorder() {
   std::cout << "Output: Printing the tree in Pre-Order: ";
-  RecPrintInorder(treeRoot);
+  RecPrintPreorder(treeRoot);
   std::cout << std::endl;
 }
 
 void BinaryTree::PrintPostorder() {
   std::cout << "Output: Printing the tree in Post-Order: ";
-  RecPrintInorder(treeRoot);
+  RecPrintPostorder(treeRoot);
   std::cout << std::endl;
 }
 
