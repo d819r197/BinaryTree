@@ -45,11 +45,63 @@ std::cout << "Adding item: " <<item <<" to the tree.\n";
 }
 
 bool BinaryTree::RecDelete(Node* root, char value) {
-
+    if(root->getValue() == value && root->getLeftChild() != nullptr) {
+      std::cout << "FOUND VALUE: " <<value <<std::endl;
+      Node* tempNode = root->getLeftChild();
+      Node* lastNode = nullptr;
+      while(tempNode->getRightChild() != nullptr) {
+        lastNode = tempNode;
+        tempNode = tempNode->getRightChild();
+      }
+      root->setValue(lastNode->getValue());
+      lastNode->setRightChild(nullptr);
+      delete tempNode;
+      return(true);
+    }
+    else if(root->getValue() == value && root->getRightChild() != nullptr) {
+      std::cout << "FOUND VALUE: " <<value <<std::endl;
+      Node* tempNode = root->getRightChild();
+      Node* lastNode = nullptr;
+      while(tempNode->getLeftChild() != nullptr) {
+        lastNode = tempNode;
+        tempNode = tempNode->getLeftChild();
+      }
+      root->setValue(lastNode->getValue());
+      lastNode->setLeftChild(nullptr);
+      delete tempNode;
+      return(true);
+    }
+    else if((root->getLeftChild())->getValue() == value && (root->getLeftChild())->getLeftChild() == nullptr && (root->getRightChild())->getRightChild() == nullptr) {
+      Node* tempNode = root->getLeftChild();
+      root->setLeftChild(nullptr);
+      delete tempNode;
+      return(true);
+    }
+    else if((root->getRightChild())->getValue() == value && (root->getLeftChild())->getLeftChild() == nullptr && (root->getRightChild())->getRightChild() == nullptr) {
+      Node* tempNode = root->getRightChild();
+      root->setRightChild(nullptr);
+      delete tempNode;
+      return(true);
+    }
+    else if(RecDelete(root->getLeftChild(), value)){
+      return(true);
+    }
+    else if(RecDelete(root->getRightChild(), value)) {
+      return(true);
+    }
+    else {
+      // std::cout << "ERROR: Could not find item to be deleted in Binary Search Tree.\n";
+      return(false);
+    }
 }
 
 bool BinaryTree::Delete(char value) {
-  RecDelete(treeRoot, value);
+  if(treeRoot != nullptr) {
+    return(RecDelete(treeRoot, value));
+  }
+  else {
+    return(false);
+  }
 }
 
 
@@ -96,7 +148,7 @@ void BinaryTree::PrintTreeHeight() {
 }
 
 void BinaryTree::RecPrintPreorder(Node* root) {
-  if(root != nullptr) {
+  if(treeRoot != nullptr) {
     std::cout <<root->getValue() << ", ";
     if(root->getLeftChild() != nullptr) {
       RecPrintInorder(root->getLeftChild());
@@ -108,7 +160,7 @@ void BinaryTree::RecPrintPreorder(Node* root) {
 }
 
 void BinaryTree::RecPrintPostorder(Node* root) {
-  if(root != nullptr) {
+  if(treeRoot != nullptr) {
     if(root->getLeftChild() != nullptr) {
       RecPrintInorder(root->getLeftChild());
     }
@@ -120,7 +172,7 @@ void BinaryTree::RecPrintPostorder(Node* root) {
 }
 
 void BinaryTree::RecPrintInorder(Node* root) {
-  if(root != nullptr) {
+  if(treeRoot != nullptr) {
     if(root->getLeftChild() != nullptr) {
       RecPrintInorder(root->getLeftChild());
     }
@@ -132,7 +184,7 @@ void BinaryTree::RecPrintInorder(Node* root) {
 }
 
 void BinaryTree::RecPrintLevelorder(Node* root) {
-  if(root != nullptr) {
+  if(treeRoot != nullptr) {
     std::cout << root->getValue() <<", ";
     RecPrintLevelorder(root->getLeftChild());
     RecPrintLevelorder(root->getRightChild());

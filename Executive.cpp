@@ -37,7 +37,7 @@ void Executive::run() {
     switch (menuInput()) {
       //Add Iteml
       case 1: {
-          int input;
+          char input;
           std::cout << "Please enter the value which you want to enter into the tree: ";
           std::cin >> input;
           tree->AddItem(input);
@@ -45,7 +45,17 @@ void Executive::run() {
       }
       //Delete
       case 2: {
-
+        char input;
+        std::cout << "Enter the character to be deletd: ";
+        std::cin >> input;
+        std::cout << std::endl;
+        std::cout << "Output: ";
+        if(tree->Delete(input)) {
+          std::cout << "Deletion was successful.\n";
+        }
+        else {
+          std::cout << "Deletion failed. The character is not present in the tree.\n";
+        }
         break;
       }
       //Leaf
