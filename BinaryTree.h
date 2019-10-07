@@ -23,6 +23,7 @@ class BinaryTree {
     void RecPrintLeaves(Node* root);
     void PrintLeaves();
 
+    int getTreeHeight(Node* root, int treeHeight);
     void PrintTreeHeight();
 
     void RecPrintPreorder(Node* root);

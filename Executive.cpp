@@ -46,7 +46,7 @@ void Executive::run() {
       //Delete
       case 2: {
         char input;
-        std::cout << "Enter the character to be deletd: ";
+        std::cout << "Enter the character to be deleted: ";
         std::cin >> input;
         std::cout << std::endl;
         std::cout << "Output: ";
@@ -105,7 +105,17 @@ void Executive::run() {
       }
       //SearchElement
       case 10: {
-          //tree->SearchElement();
+        char input;
+        std::cout << "Please enter the value which you want to searcy in the tree: ";
+        std::cin >> input;
+        std::cout << std::endl;
+        std::cout << "The value: " <<input <<" was ";
+          if(tree->SearchElement(input)){
+            std::cout <<"found in the tree.\n";
+          }
+          else {
+            std::cout <<"not found in the tree.\n";
+          }
           break;
       }
       //Quit
@@ -117,6 +127,7 @@ void Executive::run() {
       //Invalid Input
       default: {
           std::cout << "Please input a number between 1 and 11.\n\n";
+          break;
       }
     }
   }
