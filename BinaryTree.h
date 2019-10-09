@@ -11,7 +11,7 @@ class BinaryTree {
     BinaryTree();
 
     //Class Functions
-    bool RecAddItem(Node* root, char value);
+    void RecAddItem(Node* root, char value);
     void AddItem(char item);
 
     bool RecDelete(Node* root, char value);

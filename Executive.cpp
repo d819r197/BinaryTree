@@ -75,6 +75,7 @@ void Executive::run() {
       }
       //Print Leaf
       case 4: {
+        std::cout << "Output: "
         tree->PrintLeaves();
         break;
       }

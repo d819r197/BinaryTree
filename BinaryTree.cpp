@@ -10,7 +10,7 @@ BinaryTree::BinaryTree() {
 }
 
 //Class Functions
-bool BinaryTree::RecAddItem(Node* root, char value) {
+void BinaryTree::RecAddItem(Node* root, char value) {
   if(value <= root->getValue() && root->getLeftChild() != nullptr) {
     RecAddItem(root->getLeftChild(), value);
   }
@@ -32,21 +32,24 @@ bool BinaryTree::RecAddItem(Node* root, char value) {
 }
 
 void BinaryTree::AddItem(char item) {
-std::cout << "Adding item: " <<item <<" to the tree.\n";
+// std::cout << "Adding item: " <<item <<" to the tree.\n";
   // Empty Tree
   if(treeRoot == nullptr) {
-    std::cout << "Inserting at root.\n";
+    // std::cout << "Inserting at root.\n";
     Node* childNode = new Node(item);
     treeRoot = childNode;
   }
   else {
     RecAddItem(treeRoot, item);
   }
+  std::cout << "Output: the element was inserted successfully"
 }
 
 bool BinaryTree::RecDelete(Node* root, char value) {
   if(root != nullptr) {
+    // std::cout << "Comparing item: " <<root->getValue() <<" with: " <<value <<std::endl;
     if(root->getValue() == value && root->getLeftChild() != nullptr) {
+      // std::cout << "Value found: " <<root->getValue() <<" with a valid left child.\n";
       Node* tempNode = root->getLeftChild();
       Node* lastNode = tempNode;
       while(tempNode->getRightChild() != nullptr) {
@@ -66,6 +69,7 @@ bool BinaryTree::RecDelete(Node* root, char value) {
       return(true);
     }
     else if(root->getValue() == value && root->getRightChild() != nullptr) {
+      // std::cout << "Value found: " <<root->getValue() <<" with a valid right child.\n";
       Node* tempNode = root->getRightChild();
       Node* lastNode = tempNode;
       while(tempNode->getLeftChild() != nullptr) {
@@ -76,52 +80,50 @@ bool BinaryTree::RecDelete(Node* root, char value) {
 
       if(lastNode == tempNode) {
         root->setRightChild(nullptr);
-        delete lastNode;
       }
       else {
         lastNode->setLeftChild(nullptr);
-        delete tempNode;
       }
+      delete tempNode;
       return(true);
     }
     else if(root->getLeftChild() != nullptr) {
+      // std::cout << "Value: " <<root->getValue() <<" has a valid left child.\n";
       if((root->getLeftChild())->getValue() == value) {
+        // std::cout << "Value found: " <<(root->getLeftChild())->getValue() <<".\n";
         Node* tempNode = root->getLeftChild();
-        root->setLeftChild(nullptr);
+        if(tempNode->getLeftChild() == nullptr) {
+          root->setLeftChild(nullptr);
+        }
+        else {
+          root->setLeftChild(tempNode->getLeftChild());
+        }
         delete tempNode;
+        return(true);
       }
     }
     else if(root->getRightChild() != nullptr) {
+      // std::cout << "Value: " <<root->getValue() <<" has a valid right child.\n";
       if((root->getRightChild())->getValue() == value) {
+        // std::cout << "Value found: " <<(root->getRightChild())->getValue() <<".\n";
         Node* tempNode = root->getRightChild();
-        root->setRightChild(nullptr);
+        if(tempNode->getRightChild() == nullptr) {
+          root->setRightChild(nullptr);
+        }
+        else {
+          root->setRightChild(tempNode->getRightChild());
+        }
         delete tempNode;
+        return(true);
       }
     }
-    // else if((root->getLeftChild())->getValue() == value && (root->getLeftChild())->getLeftChild() == nullptr && (root->getRightChild())->getRightChild() == nullptr) {
-      // std::cout << "CHUNK 1\n";
-      // Node* tempNode = root->getLeftChild();
-      // root->setLeftChild(nullptr);
-      // delete tempNode;
-      // return(true);
-    // }
-    // else if((root->getRightChild())->getValue() == value && (root->getLeftChild())->getLeftChild() == nullptr && (root->getRightChild())->getRightChild() == nullptr) {
-      // std::cout << "CHUNK 2\n";
-      // Node* tempNode = root->getRightChild();
-      // root->setRightChild(nullptr);
-      // delete tempNode;
-      // return(true);
-    // }
-    else if(root->getLeftChild() != nullptr && RecDelete(root->getLeftChild(), value)){
+    if(RecDelete(root->getLeftChild(), value)) {
       return(true);
     }
-    else if(root->getRightChild() != nullptr && RecDelete(root->getRightChild(), value)) {
+    if(RecDelete(root->getRightChild(), value)) {
       return(true);
     }
-    else {
-      // std::cout << "ERROR: Could not find item to be deleted in Binary Search Tree.\n";
-      return(false);
-    }
+    return(false);
   }
 }
 
@@ -167,7 +169,7 @@ bool BinaryTree::IsLeaf(char value) {
 
 void BinaryTree::RecPrintLeaves(Node* root) {
   if(root->getLeftChild() == nullptr && root->getRightChild() == nullptr) {
-    std::cout << "[ " <<root->getValue() <<" ] ";
+    std::cout <<root->getValue() <<"" ";
   }
   if(root->getLeftChild() != nullptr) {
     RecPrintLeaves(root->getLeftChild());
@@ -178,7 +180,7 @@ void BinaryTree::RecPrintLeaves(Node* root) {
 }
 
 void BinaryTree::PrintLeaves() {
-  std::cout << "Leaves: ";
+  std::cout << "The leaves are: ";
   RecPrintLeaves(treeRoot);
   std::cout << std::endl;
 }
