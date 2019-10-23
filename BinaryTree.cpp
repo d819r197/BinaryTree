@@ -42,7 +42,7 @@ void BinaryTree::AddItem(char item) {
   else {
     RecAddItem(treeRoot, item);
   }
-  std::cout << "Output: the element was inserted successfully"
+  std::cout << "Output: the element: "<< item <<" was inserted successfully.\n";
 }
 
 bool BinaryTree::RecDelete(Node* root, char value) {
@@ -169,7 +169,7 @@ bool BinaryTree::IsLeaf(char value) {
 
 void BinaryTree::RecPrintLeaves(Node* root) {
   if(root->getLeftChild() == nullptr && root->getRightChild() == nullptr) {
-    std::cout <<root->getValue() <<"" ";
+    std::cout <<root->getValue() <<" ";
   }
   if(root->getLeftChild() != nullptr) {
     RecPrintLeaves(root->getLeftChild());
